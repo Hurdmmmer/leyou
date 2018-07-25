@@ -1,0 +1,31 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: item-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.10.129:3306/leyou?useUnicode=true&characterEncoding=utf-8
+    username: durhummer
+    password: Qwsyj222!
+#设置健康检查循环注入问题
+  cloud:
+    refresh:
+      refreshable: none
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+# 配置 httpclient 常用配置
+http-client:
+    socketTimeout: 10000
+    connectTimeout: 10000
+    connectionRequestTimeout: 10000
+    maxTotal: 200
+    maxPerRoute: 2
+delete-image-url:
+  url: http://api.leyou.com/api/upload/image
