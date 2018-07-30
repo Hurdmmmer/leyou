@@ -157,14 +157,14 @@ public class GoodsService extends BaseService<Spu> {
     }
 
     /**
-     *  根据 id 查询
+     * 根据 id 查询
      */
     public SpuDetail querySpuDetailById(Long id) {
         return spuDetailMapper.selectByPrimaryKey(id);
     }
 
     /**
-     *  根据 id 查询 sku 列表
+     * 根据 id 查询 sku 列表
      */
     public List<Sku> querySkusBySpuId(Long id) {
         Sku sku = new Sku();
@@ -182,7 +182,7 @@ public class GoodsService extends BaseService<Spu> {
     }
 
     /**
-     *  修改商品
+     * 修改商品
      */
     @Transactional
     public boolean updateGoods(Spu spu) {
@@ -216,7 +216,7 @@ public class GoodsService extends BaseService<Spu> {
                 sku.setSpuId(spu.getId());
                 sku.setCreateTime(spu.getCreateTime());
                 sku.setLastUpdateTime(new Date());
-                flag = skuMapper.insert(sku) >0;
+                flag = skuMapper.insert(sku) > 0;
                 if (!flag) {
                     logger.info("修改商品失败, 数据回滚");
                     throw new RuntimeException("修改 SKU 失败");
@@ -239,5 +239,15 @@ public class GoodsService extends BaseService<Spu> {
         }
 
         return flag;
+    }
+
+    /**
+     * 根据 skuId 查询库存
+     *
+     * @param skuId
+     * @return
+     */
+    public Stock queryStockBySkuId(Long skuId) {
+        return this.stockMapper.selectByPrimaryKey(skuId);
     }
 }

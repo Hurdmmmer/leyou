@@ -37,7 +37,7 @@ public class SpuController {
      * 根据条件分页查询
      */
     @GetMapping("page")
-    public ResponseEntity<PageResult> querySkuByPage(
+    public ResponseEntity<PageResult<Spu>> querySkuByPage(
             @RequestParam(value = "key", required = false) String key,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "rows", defaultValue = "5") Integer rows,
@@ -60,7 +60,7 @@ public class SpuController {
     }
 
     /**
-     * 根据 id 查询 SpuDetail 数据
+     * 根据 spu id 查询 SpuDetail 数据
      */
 
     @GetMapping("detail/{id}")
@@ -77,5 +77,15 @@ public class SpuController {
         }
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+    /** 根据 spuID 查询 spu 数据 */
+    @RequestMapping
+    public ResponseEntity<Spu> querySpuBySpuId(@RequestParam("spuId") Long spuId) {
+
+        Spu spu = this.goodsService.queryById(spuId);
+        if (spu == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(spu);
     }
 }

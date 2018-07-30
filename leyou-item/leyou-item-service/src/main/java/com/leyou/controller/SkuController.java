@@ -1,6 +1,7 @@
 package com.leyou.controller;
 
 import com.leyou.pojo.Sku;
+import com.leyou.pojo.Stock;
 import com.leyou.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class SkuController {
     private GoodsService goodsService;
 
     /**
-     *  根据 id 查询 sku 列表
+     *  根据 spuId 查询 sku 列表
      */
     @GetMapping("list")
     public ResponseEntity<List<Sku>> querySkusById(@RequestParam("id")Long id) {
@@ -41,4 +42,13 @@ public class SkuController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
+    /** 根据 skuID 查询库存*/
+    @GetMapping("stock")
+    public ResponseEntity<Stock> queryStockBySkuId(@RequestParam("skuId") Long skuId) {
+        Stock stock = goodsService.queryStockBySkuId(skuId);
+        if (stock == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(stock);
+    }
 }

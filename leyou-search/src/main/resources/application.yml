@@ -1,0 +1,22 @@
+server:
+  port: 8083   # tomcat插件 服务器端口号
+
+spring:
+  application:
+    name: search-service # 该服务的名称
+  jackson:
+    default-property-inclusion: non_null   # jackson 转换时忽略值为 null 的字段
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.10.131:9300,192.168.10.131:9301 # elasticsearch 集群的 ip
+      cluster-name: cusc # 集群的名称
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka # 注册到 eureka 的服务器的地址
+  instance:
+    lease-renewal-interval-in-seconds: 5          # 为了开发阶段设置的心跳机制
+    lease-expiration-duration-in-seconds: 10
+    prefer-ip-address: true   # 服务器直接拉取 ip 而不是机器的名称
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}

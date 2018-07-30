@@ -16,12 +16,13 @@ zuul:
   prefix: /api # 添加路由前缀
   retryable: true # 开启重试
   routes:
-    item-service: /item/**    #将商品服务映射到 item上
-    upload-service: /upload/**
+    item-service: /item/**       #将商品服务映射到 item上
+    upload-service: /upload/**   #图片上传
+    search-service: /search/**   #前台商品搜索
 
 ribbon:
   ConnectTimeout: 250 # 连接超时时间(ms)
-  ReadTimeout: 2000 # 通信超时时间(ms)
+  ReadTimeout: 2000   # 通信超时时间(ms)
   OkToRetryOnAllOperations: false # 是否对所有操作重试
   MaxAutoRetriesNextServer: 1 # 同一服务不同实例的重试次数
   MaxAutoRetries: 1 # 同一实例的重试次数

@@ -1,9 +1,7 @@
 package com.leyou.pojo;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /** 规格组实体类, 参数模板化
  * @author shen youjian
@@ -19,6 +17,17 @@ public class SpecGroup {
     private Long cid;
 
     private String name;
+    /** 该规格组下 对应的规格参数的 key */
+    @Transient
+    private List<SpecParam> specParamList;
+
+    public List<SpecParam> getSpecParamList() {
+        return specParamList;
+    }
+
+    public void setSpecParamList(List<SpecParam> specParamList) {
+        this.specParamList = specParamList;
+    }
 
     public Long getId() {
         return id;

@@ -146,4 +146,13 @@ public class BrandService extends BaseService<Brand> {
         List<Brand> brands = brandMapper.queryBrandByCid(cid);
         return brands;
     }
+
+    /**
+     * 根据一组 品牌id 查询品牌
+     * @param bids
+     * @return
+     */
+    public List<Brand> queryBrandsByBids(List<Long> bids) {
+        return brandMapper.selectByIdList(bids);
+    }
 }

@@ -11,6 +11,15 @@ import java.util.List;
 public class PageResult<T> {
     private long total;
     private List<T> data;
+    private long totalElements;
+
+    public long getTotalElements() {
+        return totalElements;
+    }
+
+    public void setTotalElements(long totalElements) {
+        this.totalElements = totalElements;
+    }
 
     public long getTotal() {
         return total;

@@ -149,4 +149,25 @@ public class BrandController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
+    /**
+     * 根据品牌id 查询品牌数据
+     */
+    @GetMapping("/bid")
+    public ResponseEntity<Brand> queryBrandByBid(@RequestParam("bid") Long bid) {
+        Brand brand = brandService.queryById(bid);
+        if (bid == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        return ResponseEntity.ok(brand);
+    }
+
+    @GetMapping("list")
+    public ResponseEntity<List<Brand>> queryBrandsByBids(@RequestParam("bids") List<Long> bids) {
+
+        List<Brand> brands = brandService.queryBrandsByBids(bids);
+        if (brands == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        return ResponseEntity.ok(brands);
+    }
 }

@@ -1,6 +1,7 @@
 package com.leyou.dao;
 
 import com.leyou.pojo.Category;
+import tk.mybatis.mapper.additional.idlist.SelectByIdListMapper;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
@@ -8,5 +9,5 @@ import tk.mybatis.mapper.common.Mapper;
  * @author shen youjian
  * @date 2018/7/18 16:50
  */
-public interface CategoryMapper extends Mapper<Category> {
+public interface CategoryMapper extends Mapper<Category>, SelectByIdListMapper<Category, Long> {
 }
