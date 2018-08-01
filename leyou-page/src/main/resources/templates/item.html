@@ -454,6 +454,7 @@
 							</div>
 							<div id="three" class="tab-pane">
 								<p>售后保障</p>
+								<p v-text="spu.spuDetail.afterService"></p>
 							</div>
 							<div id="four" class="tab-pane">
 								<p>商品评价</p>
@@ -639,13 +640,18 @@
                 // 取出对象中的value变成一个数组
                 let index = Object.values(this.indexes).join("_");
                 // 找到和用户选择相同的indexes 表示的 sku对象 并返回
-                return this.spu.skus.find(s => s.indexes === index);
+				// 判断是否找到新的 sku 对象, 如果找不到则返回一个 null值
+				if (!typeof(this.spu.skus.find(s => s.indexes === index)) === 'undefined') {
+
+                    return this.spu.skus.find(s => s.indexes === index);
+                }
+				return this.spu.skus.find(s => s.indexes.match(index[0]));
             },
             images() {
                 return this.sku.images ? this.sku.images.split(",") : "";
             },
             groups() {
-                // todo 不是很懂
+                // 规格参数组
                 this.specs.forEach(groups => {
                     groups.specParamList.forEach(param => {
                         // 判断当前规格参数是否是通用的, 如果不是通用的则需要去 特有的属性中去取值

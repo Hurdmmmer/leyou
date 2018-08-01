@@ -299,6 +299,7 @@ public class SearchService {
                 String name = specParam.getName();
                 // 设置聚合的名称
                 String aggName = "specs." + name + ".keyword";
+                // 使用精确匹配聚合查询结果
                 queryBuilder.addAggregation(AggregationBuilders.terms(name).field(aggName));
             }
             AggregatedPage<Goods> aggGoods = template.queryForPage(queryBuilder.build(), Goods.class);

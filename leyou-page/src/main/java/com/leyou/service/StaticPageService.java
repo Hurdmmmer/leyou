@@ -25,7 +25,7 @@ public class StaticPageService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    @Value("#{ly.thymeleaf.destPath}")
+    @Value("${ly.thymeleaf.destPath}")
     private String destPath;
 
     /**

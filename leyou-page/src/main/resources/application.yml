@@ -15,6 +15,7 @@ eureka:
     instance-id: ${spring.application.name}:${server.port}
     lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
     lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+# 生成静态页面存放的目录地址
 ly:
   thymeleaf:
     destPath: D:\nginx-1.5.1\html\item
