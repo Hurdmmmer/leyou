@@ -10,6 +10,12 @@ spring:
     elasticsearch:
       cluster-nodes: 192.168.10.131:9300,192.168.10.131:9301 # elasticsearch 集群的 ip
       cluster-name: cusc # 集群的名称
+  rabbitmq:
+    host: 192.168.10.131
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+
 eureka:
   client:
     service-url:

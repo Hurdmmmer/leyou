@@ -104,4 +104,12 @@ public class StaticPageService {
             }
         });
     }
+
+    /** 根据商品id删除页面 */
+    public void deleteHtml(Long id) {
+        File path = createPath(id);
+        if (path.exists()) {
+            path.delete();
+        }
+    }
 }

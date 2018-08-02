@@ -5,6 +5,12 @@ spring:
     name: page-service
   thymeleaf:
     cache: false   # 关闭 thymeleaf 的缓存设置
+  rabbitmq:
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+    host: 192.168.10.131
+
 eureka:
   client:
     service-url:

@@ -10,6 +10,10 @@ import com.leyou.dao.StockMapper;
 import com.leyou.pojo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,8 +48,10 @@ public class GoodsService extends BaseService<Spu> {
     private SkuMapper skuMapper;
     @Autowired
     private StockMapper stockMapper;
+    private final Logger logger = LoggerFactory.getLogger(GoodsService.class);
+    /** springBoot 提供的发送msg queue模板类 */
     @Autowired
-    private Logger logger;
+    private AmqpTemplate amqpTemplate;
 
     @Override
     public Mapper<Spu> getMapper() {
@@ -149,11 +155,25 @@ public class GoodsService extends BaseService<Spu> {
                 logger.info("批量插入 Stock 失败");
                 throw new RuntimeException("批量插入 Stock 失败");
             }
+            // 发送消息, 通知其他服务, 新增了商品
+            sendMsg(spu.getId(), "insert");
+
         } catch (RuntimeException e) {
             logger.info("插入商品失败");
             e.printStackTrace();
         }
         return flag;
+    }
+    /**
+     *  根据 type 发送消息到 RabbitMQ 服务器,
+     *  type: 增删改
+     * */
+    private void sendMsg(Long id, String type) {
+        try {
+            amqpTemplate.convertAndSend("item."+type, id);
+        } catch (Exception e) {
+            logger.error("消息发送失败 id: {}, type:{}", id, type, e);
+        }
     }
 
     /**
@@ -232,7 +252,8 @@ public class GoodsService extends BaseService<Spu> {
             if (!flag) {
                 throw new RuntimeException("修改 spuDetail 失败");
             }
-
+            // 发送消息, 通知修改
+            sendMsg(spu.getId(), "update");
         } catch (RuntimeException e) {
             logger.info("修改商品失败");
             e.printStackTrace();

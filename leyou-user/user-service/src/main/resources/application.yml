@@ -1,0 +1,37 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: user-service
+# redis 配置
+  redis:
+    host: 192.168.10.129
+    port: 6379
+# RabbitMQ 交换机 host 配置, 短信服务就不需要设置重试机制了, 失败就失败了
+  rabbitmq:
+    host: 192.168.10.131
+    username: leyou
+    password: leyou
+    virtual-host: /leyou
+    template:
+      exchange: ly.user.check.code.exchange
+      routing-key: user.code
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.10.129:3306/leyou?useUnicode=true&characterEncoding=utf-8
+    username: durhummer
+    password: Qwsyj222!
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 10
+  instance:
+    lease-expiration-duration-in-seconds: 5
+    lease-renewal-interval-in-seconds: 10
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
+mybatis:
+  type-aliases-package: com.leyou.user.pojo  # 别名包 mybatis
