@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 spring:
   application:
     name: item-service
@@ -29,7 +29,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:10086/eureka/
+      defaultZone: http://127.0.0.1:10086/eureka/,http://127.0.0.1:10087/eureka/,http://127.0.0.1:10088/eureka/
   instance:
     instance-id: ${spring.application.name}:${server.port}
     ip-address: 127.0.0.1
@@ -45,3 +45,5 @@ http-client:
     maxPerRoute: 2
 delete-image-url:
   url: http://api.leyou.com/api/upload/image
+
+debug: true

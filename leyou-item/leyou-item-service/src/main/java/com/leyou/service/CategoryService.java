@@ -2,8 +2,7 @@ package com.leyou.service;
 
 import com.leyou.dao.CategoryMapper;
 import com.leyou.dao.SpuMapper;
-import com.leyou.pojo.Category;
-import com.leyou.pojo.Spu;
+import com.leyou.item.pojo.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;

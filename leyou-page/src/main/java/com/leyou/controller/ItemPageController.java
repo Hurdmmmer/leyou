@@ -32,9 +32,9 @@ public class ItemPageController {
         model.addAllAttributes(result);
         // 生成静态页面
         // 判断静态页面是否存在
-        if(!staticPageService.exists(id)) {
-            staticPageService.syncCreateHtml(id);
-        }
+//        if(!staticPageService.exists(id)) {
+//            staticPageService.syncCreateHtml(id);
+//        }
 
         return "item";
     }

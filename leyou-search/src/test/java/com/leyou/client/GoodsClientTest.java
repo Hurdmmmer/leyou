@@ -1,7 +1,7 @@
 package com.leyou.client;
 
 import com.leyou.LeyouSearchApp;
-import com.leyou.pojo.Sku;
+import com.leyou.item.pojo.Sku;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

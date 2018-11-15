@@ -1,6 +1,6 @@
 package com.leyou.dao;
 
-import com.leyou.pojo.Stock;
+import com.leyou.item.pojo.Stock;
 import tk.mybatis.mapper.additional.idlist.DeleteByIdListMapper;
 import tk.mybatis.mapper.additional.insert.InsertListMapper;
 import tk.mybatis.mapper.common.Mapper;

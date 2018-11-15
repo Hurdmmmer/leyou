@@ -1,7 +1,7 @@
 package com.leyou.controller;
 
-import com.leyou.pojo.SpecGroup;
-import com.leyou.pojo.SpecParam;
+import com.leyou.item.pojo.SpecGroup;
+import com.leyou.item.pojo.SpecParam;
 import com.leyou.service.SpecGroupService;
 import com.leyou.service.SpecParamService;
 import org.slf4j.Logger;

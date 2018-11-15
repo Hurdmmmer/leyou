@@ -1,7 +1,7 @@
 package com.leyou.controller;
 
-import com.leyou.pojo.Sku;
-import com.leyou.pojo.Stock;
+import com.leyou.item.pojo.Sku;
+import com.leyou.item.pojo.Stock;
 import com.leyou.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

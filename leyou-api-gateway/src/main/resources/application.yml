@@ -1,12 +1,12 @@
 server:
-  port: 10010
+  port: 10011
 spring:
   application:
     name: api-gateway
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:10086/eureka/
+      defaultZone: http://127.0.0.1:10086/eureka/,http://127.0.0.1:10087/eureka/,http://127.0.0.1:10088/eureka/
     registry-fetch-interval-seconds: 5   #每5秒拉取一次服务ip地址
   instance:
     prefer-ip-address: true
@@ -16,10 +16,19 @@ zuul:
   prefix: /api # 添加路由前缀
   retryable: true # 开启重试
   routes:
-    item-service: /item/**       #将商品服务映射到 item上
+    item-service: /item/**        #将商品服务映射到 item上
     upload-service: /upload/**   #图片上传
     search-service: /search/**   #前台商品搜索
+    user-service: /user/**       #用户模块
+    auth-service: /auth/**       #鉴权模块
+    cart-service: /cart/**       #购物车模块
+    order-service:
+      path: /order/**
+      serviceId: order-service
+      strip-prefix: true
 
+  sensitive-headers: # zuul 默认是拦截敏感信息的, cookie set_cookie 等, 我这里直接全局设置覆盖了 ZuulFilter 中的使用默认的敏感信息忽略属性
+  add-host-header: true # 设置转发到微服务时, 携带 host 地址
 ribbon:
   ConnectTimeout: 250 # 连接超时时间(ms)
   ReadTimeout: 2000   # 通信超时时间(ms)
@@ -34,6 +43,20 @@ hystrix:
           thread:
             timeoutInMillisecond: 10000  # 熔断超时时长：10000ms
 debug: true
+# 设置权限过滤的配置
+ly:
+  jwt:
+    pubKeyPath: D:/rsa/rsa.pub # 公钥地址
+    cookieName: LY_TOKEN # cookie的名称
+  filter:
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item
+      - /api/user/phone
 
 
 

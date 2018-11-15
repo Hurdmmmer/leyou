@@ -1,6 +1,6 @@
 package com.leyou.client;
 
-import com.leyou.api.SpecificationParamApi;
+import com.leyou.item.api.SpecificationParamApi;
 import org.springframework.cloud.openfeign.FeignClient;
 
 /**

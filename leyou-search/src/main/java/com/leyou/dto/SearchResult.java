@@ -1,10 +1,9 @@
 package com.leyou.dto;
 
 import com.leyou.common.pojo.PageResult;
-import com.leyou.pojo.Goods;
+import com.leyou.user.pojo.Goods;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  *  由于原本的 PageResult 中属性不够, 需要添加几个属性用于

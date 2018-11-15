@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>leyou-item-interface</artifactId>
 
+
     <dependencies>
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -24,7 +25,7 @@
         <dependency>
             <groupId>com.leyou.common</groupId>
             <artifactId>leyou-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${leyou.latest.version}</version>
         </dependency>
     </dependencies>
 

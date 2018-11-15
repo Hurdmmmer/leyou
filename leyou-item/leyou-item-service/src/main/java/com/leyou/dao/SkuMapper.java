@@ -1,6 +1,6 @@
 package com.leyou.dao;
 
-import com.leyou.pojo.Sku;
+import com.leyou.item.pojo.Sku;
 import tk.mybatis.mapper.additional.insert.InsertListMapper;
 import tk.mybatis.mapper.common.Mapper;
 

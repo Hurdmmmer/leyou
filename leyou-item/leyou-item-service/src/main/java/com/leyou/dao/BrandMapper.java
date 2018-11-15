@@ -1,7 +1,7 @@
 package com.leyou.dao;
 
-import com.leyou.pojo.Brand;
-import com.leyou.pojo.Category;
+import com.leyou.item.pojo.Brand;
+import com.leyou.item.pojo.Category;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;

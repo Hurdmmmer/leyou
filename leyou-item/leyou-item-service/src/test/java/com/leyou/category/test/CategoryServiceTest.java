@@ -1,6 +1,6 @@
 package com.leyou.category.test;
 
-import com.leyou.pojo.Category;
+import com.leyou.item.pojo.Category;
 import com.leyou.service.CategoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

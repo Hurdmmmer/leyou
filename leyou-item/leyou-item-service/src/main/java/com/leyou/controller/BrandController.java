@@ -2,8 +2,8 @@ package com.leyou.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.leyou.common.pojo.PageResult;
-import com.leyou.pojo.Brand;
-import com.leyou.pojo.Category;
+import com.leyou.item.pojo.Brand;
+import com.leyou.item.pojo.Category;
 import com.leyou.service.BrandService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 

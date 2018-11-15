@@ -1,16 +1,18 @@
 package com.leyou.user.service;
 
 import com.leyou.common.utils.NumberUtils;
-import com.leyou.pojo.User;
 import com.leyou.user.mapper.UserMapper;
+import com.leyou.user.pojo.User;
+import com.leyou.user.utils.CodecUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +53,7 @@ public class UserService {
         User record = new User();
         switch (type) {
             case 1:
-                record.setUserName(data);
+                record.setUsername(data);
                 break;
             case 2:
                 record.setPhone(data);
@@ -68,6 +70,10 @@ public class UserService {
      * @param phone 手机号码
      */
     public Boolean sendCheckCode(String phone) {
+
+        // 校验手机号码是否已经发送了验证码
+
+
         String checkCode = NumberUtils.generateCode(6);
         // 调用短信服务发送短信, 忘消息队列中发送信息
         try {
@@ -91,5 +97,39 @@ public class UserService {
         msg.put("code", code);
         // exchange, routing key 都是在配置文件中配置
         amqpTemplate.convertAndSend(msg);
+    }
+    /**
+     *  注册用户
+     * */
+    public boolean register(User user, String code) {
+        // 从 redis 中获取注册码
+        String redisCode = redisTemplate.opsForValue().get(KEY_PREFIX + user.getPhone());
+        if (!StringUtils.equals(redisCode, code)) {
+            return false;
+        }
+        // 使用 加密工具进行密码加密, 存储到服务器中
+        user.setId(null);
+        user.setCreated(new Date());
+        // 获取加密混淆的盐值
+        String salt = CodecUtils.generateSalt();
+        user.setSalt(salt);
+        // 加密密码
+        user.setPassword(CodecUtils.md5Hex(user.getPassword(), salt));
+        return userMapper.insert(user) == 1;
+    }
+
+    /** 根据账号密码查询用户信息 */
+    public User queryUserByUsernameAndPassword(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user = userMapper.selectOne(user);
+        if (user == null) {
+            return null;
+        }
+        if (!StringUtils.equals(user.getPassword(), CodecUtils.md5Hex(password, user.getSalt()))) {
+            return null;
+        }
+
+        return user;
     }
 }

@@ -1,0 +1,58 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql://192.168.10.129/leyou?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+    username: durhummer
+    password: Qwsyj222!
+    driver-class-name: com.mysql.jdbc.Driver
+  rabbitmq:
+    host: 192.168.10.131
+    virtual-host: /leyou
+    username: leyou
+    password: leyou
+    template:
+      retry: # 重试机制
+        enabled: true
+        initial-interval: 10000ms
+        max-interval: 30000ms
+        multiplier: 2
+      exchange: ly.item.exchange
+    publisher-confirms: true
+  redis:
+    host: 192.168.10.131
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+mybatis:
+  type-aliases-package: com.leyou.item.pojo
+  mapper-locations: mapper/OrderMapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+mapper:
+  not-empty: false
+  identity: mysql
+ly:
+  worker:
+    workerId: 1
+    datacenterId: 1
+  jwt:
+    pubKeyPath: D:/rsa/rsa.pub # 公钥地址
+    cookieName: LY_TOKEN # cookie的名称
+  pay:
+    appId: wx8397f8696b538317
+    mchId: 1473426802
+    key: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
+    connectTimeoutMs: 5000
+    readTimeoutMs: 10000

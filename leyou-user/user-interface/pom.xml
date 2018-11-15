@@ -10,7 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.leyou.service</groupId>
-    <artifactId>user-interface</artifactId>
+    <artifactId>leyou-user-interface</artifactId>
+    <version>${leyou.latest.version}</version>
 
     <dependencies>
         <dependency>
@@ -24,7 +25,14 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.9.0</version>
         </dependency>
-
-
+        <!--hibernate 参数校验框架-->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
     </dependencies>
 </project>

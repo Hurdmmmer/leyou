@@ -1,6 +1,6 @@
 package com.leyou.controller;
 
-import com.leyou.pojo.Spu;
+import com.leyou.item.pojo.Spu;
 import com.leyou.service.GoodsService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

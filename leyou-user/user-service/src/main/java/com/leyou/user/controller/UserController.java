@@ -1,5 +1,6 @@
 package com.leyou.user.controller;
 
+import com.leyou.user.pojo.User;
 import com.leyou.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 /**
  * 用户注册相关的控制器
@@ -58,7 +61,7 @@ public class UserController {
      */
     @PostMapping("phone")
     public ResponseEntity<Void> sendCheckCode(@RequestParam("phone") String phone) {
-        if (!"^((1[3,5,8][0-9])|(14[5,7])|(17[0,6,7,8])|(19[7]))\\\\d{8}$".matches(phone)) {
+        if ("^((1[3,5,8][0-9])|(14[5,7])|(17[0,6,7,8])|(19[7]))\\\\d{8}$".matches(phone)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
@@ -73,7 +76,42 @@ public class UserController {
             logger.error("短信发送失败, 短信服务出现异常", e);
         }
 
-
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+
+    /** 用户注册
+     *  后台校验用户数据格式是否正确, 验证码是否输入正确
+     * */
+    @PostMapping("/register")
+    public ResponseEntity<Void> register(@Valid User user, @RequestParam("code") String code) {
+        try {
+            boolean result = userService.register(user, code);
+            if (!result) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     *  根据用户名, 密码查询用户
+     * */
+    @GetMapping("query")
+    public ResponseEntity<User> queryUserByUsernameAndPassword(@RequestParam("username")String username,
+                                                               @RequestParam("password")String password) {
+        try {
+            User user = userService.queryUserByUsernameAndPassword(username, password);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

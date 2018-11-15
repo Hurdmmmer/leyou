@@ -13,6 +13,14 @@ public class PageResult<T> {
     private List<T> data;
     private long totalElements;
 
+    public PageResult() {
+    }
+
+    public PageResult(long total, List<T> data) {
+        this.total = total;
+        this.data = data;
+    }
+
     public long getTotalElements() {
         return totalElements;
     }

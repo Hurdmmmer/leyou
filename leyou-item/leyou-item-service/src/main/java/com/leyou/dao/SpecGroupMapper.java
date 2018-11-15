@@ -1,6 +1,6 @@
 package com.leyou.dao;
 
-import com.leyou.pojo.SpecGroup;
+import com.leyou.item.pojo.SpecGroup;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

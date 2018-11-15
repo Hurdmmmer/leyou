@@ -1,8 +1,8 @@
 package com.leyou.mq;
 
 import com.leyou.client.GoodsClient;
-import com.leyou.pojo.Goods;
-import com.leyou.pojo.Spu;
+import com.leyou.user.pojo.Goods;
+import com.leyou.item.pojo.Spu;
 import com.leyou.respository.GoodsRepository;
 import com.leyou.service.SearchService;
 import org.springframework.amqp.core.ExchangeTypes;
